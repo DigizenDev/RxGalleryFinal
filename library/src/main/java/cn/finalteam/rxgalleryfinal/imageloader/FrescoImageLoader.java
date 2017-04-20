@@ -39,7 +39,7 @@ public class FrescoImageLoader implements AbsImageLoader {
     }
 
     @Override
-    public void displayImage(Object context, String path, FixImageView imageView, Drawable defaultDrawable, Bitmap.Config config, boolean resize, int width, int height, int rotate) {
+    public void displayImage(Object context, String path, final FixImageView imageView, final Drawable defaultDrawable, Bitmap.Config config, boolean resize, int width, int height, int rotate) {
         Context ctx = (Context) context;
         init(ctx, defaultDrawable);
 

@@ -9,6 +9,7 @@ import cn.finalteam.rxgalleryfinal.interactor.MediaSrcFactoryInteractor;
 import cn.finalteam.rxgalleryfinal.utils.MediaUtils;
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -31,15 +32,19 @@ public class MediaSrcFactoryInteractorImpl implements MediaSrcFactoryInteractor 
 
     @Override
     public void generateMeidas(final String bucketId, final int page, final int limit) {
-        Observable.create((Observable.OnSubscribe<List<MediaBean>>) subscriber -> {
-            List<MediaBean> mediaBeanList = null;
-            if(isImage) {
-                mediaBeanList = MediaUtils.getMediaWithImageList(context, bucketId, page, limit);
-            } else {
-                mediaBeanList = MediaUtils.getMediaWithVideoList(context, bucketId, page, limit);
+        Observable.create(new Observable.OnSubscribe<List<MediaBean>>(){
+
+            @Override
+            public void call(Subscriber<? super List<MediaBean>> subscriber) {
+                List<MediaBean> mediaBeanList = null;
+                if(isImage) {
+                    mediaBeanList = MediaUtils.getMediaWithImageList(context, bucketId, page, limit);
+                } else {
+                    mediaBeanList = MediaUtils.getMediaWithVideoList(context, bucketId, page, limit);
+                }
+                subscriber.onNext(mediaBeanList);
+                subscriber.onCompleted();
             }
-            subscriber.onNext(mediaBeanList);
-            subscriber.onCompleted();
         })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

@@ -111,7 +111,7 @@ public class BucketAdapter extends RecyclerView.Adapter<BucketAdapter.BucketView
 
             itemView.setOnClickListener(this);
 
-            int checkTint = ThemeUtils.resolveColor(context, R.attr.gallery_checkbox_button_tint_color, R.color.gallery_default_checkbox_button_tint_color);
+            int checkTint = ThemeUtils.resolveColor(context, R.attr.colorAccent, R.color.gallery_default_checkbox_button_tint_color);
             CompoundButtonCompat.setButtonTintList(mRbSelected, ColorStateList.valueOf(checkTint));
         }
 

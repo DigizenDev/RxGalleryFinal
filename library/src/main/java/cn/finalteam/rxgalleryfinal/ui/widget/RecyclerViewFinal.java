@@ -10,7 +10,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -85,7 +84,7 @@ public class RecyclerViewFinal extends RecyclerView {
         mFooterViewAdapter = new FooterAdapter(adapter, mFooterView);
 
         if(getLayoutManager() != null) {
-            GridLayoutManager manager = (GridLayoutManager) getLayoutManager();
+            final GridLayoutManager manager = (GridLayoutManager) getLayoutManager();
             manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {

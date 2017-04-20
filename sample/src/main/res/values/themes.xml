@@ -7,6 +7,11 @@
 
     <style name="Theme_Light.Default"/>
 
+
+    <style name="Theme_Light.Custom" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/theme_light_blue_accent</item>
+    </style>
+
     <style name="Theme_Light.White">
         <item name="gallery_toolbar_bg">@color/theme_white_primary</item>
         <item name="gallery_toolbar_close_color">#2A2A2F</item>

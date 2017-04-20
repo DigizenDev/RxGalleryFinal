@@ -1,11 +1,8 @@
 package cn.finalteam.rxgalleryfinal;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -164,6 +161,11 @@ public class RxGalleryFinalApi {
         return mRxApi;
     }
 
+
+
+    public RxGalleryFinal setActivityClassName(Class activityClass) {
+        return rxGalleryFinal.setActivityClassName(activityClass);
+    }
 
 
 
@@ -529,5 +531,6 @@ public class RxGalleryFinalApi {
     public static File getImgSaveRxDirByFile(){
         return MediaGridFragment.getImageStoreDirByFile();
     }
+
 
 }

@@ -3,6 +3,7 @@ package cn.finalteam.rxgalleryfinal.utils;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -25,7 +26,7 @@ public class PermissionCheckUtils {
      * @param requestCode
      * @return
      */
-    public static boolean checkPermission(Activity activity, String permission, String permissionDesc, int requestCode) {
+    public static boolean checkPermission(final Activity activity, final String permission, String permissionDesc, final int requestCode) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
         if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -37,8 +38,11 @@ public class PermissionCheckUtils {
                     alertBuilder.setCancelable(false);
                     alertBuilder.setTitle("授权对话框");
                     alertBuilder.setMessage(permissionDesc);
-                    alertBuilder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                        ActivityCompat.requestPermissions(activity, new String[]{permission}, requestCode);
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(activity, new String[]{permission}, requestCode);
+                        }
                     });
                     AlertDialog alert = alertBuilder.create();
                     alert.show();

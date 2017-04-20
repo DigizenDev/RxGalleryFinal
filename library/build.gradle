@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: "com.jfrog.bintray"
 
 version = "1.0.2"
+group='com.github.dengyuhan'
 
 android {
     compileSdkVersion 24
@@ -32,10 +32,7 @@ android {
 
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+
     lintOptions {
         abortOnError false
         checkReleaseBuilds false

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntRange;
+import android.util.Log;
 
 import com.yalantis.ucrop.UCropActivity;
 import com.yalantis.ucrop.model.AspectRatio;
@@ -40,6 +41,7 @@ public class Configuration implements Parcelable{
     private int imageLoaderType;
     private int imageConfig;
     private boolean hideCamera;
+    private String toActivityClassName;
 
     //==========UCrop START==========
     //是否隐藏裁剪页面底部控制栏,默认显示
@@ -82,7 +84,6 @@ public class Configuration implements Parcelable{
         aspectRatioX = in.readFloat();
         aspectRatioY = in.readFloat();
         selectedByDefault = in.readInt();
-        aspectRatio = in.createTypedArray(AspectRatio.CREATOR);
         freestyleCropEnabled = in.readByte() != 0;
         ovalDimmedLayer = in.readByte() != 0;
         maxResultWidth = in.readInt();
@@ -90,6 +91,14 @@ public class Configuration implements Parcelable{
         imageLoaderType = in.readInt();
         imageConfig = in.readInt();
         hideCamera = in.readByte() != 0;
+        toActivityClassName = in.readString();
+
+        try {
+            aspectRatio = in.createTypedArray(AspectRatio.CREATOR);
+        }catch (NoClassDefFoundError e){
+            e.printStackTrace();
+            Log.e(Configuration.class.getSimpleName(),"没有引入com.yalantis.ucrop");
+        }
     }
 
     public static final Creator<Configuration> CREATOR = new Creator<Configuration>() {
@@ -310,6 +319,14 @@ public class Configuration implements Parcelable{
         return maxResultWidth;
     }
 
+    public void setActivityClassName(String activityClassName) {
+        this.toActivityClassName = activityClassName;
+    }
+
+    public String getActivityClassName() {
+        return toActivityClassName;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -330,7 +347,6 @@ public class Configuration implements Parcelable{
         parcel.writeFloat(aspectRatioX);
         parcel.writeFloat(aspectRatioY);
         parcel.writeInt(selectedByDefault);
-        parcel.writeTypedArray(aspectRatio, i);
         parcel.writeByte((byte) (freestyleCropEnabled ? 1 : 0));
         parcel.writeByte((byte) (ovalDimmedLayer ? 1 : 0));
         parcel.writeInt(maxResultWidth);
@@ -338,5 +354,13 @@ public class Configuration implements Parcelable{
         parcel.writeInt(imageLoaderType);
         parcel.writeInt(imageConfig);
         parcel.writeByte((byte) (hideCamera ? 1 : 0));
+        parcel.writeString(toActivityClassName);
+
+        try {
+            parcel.writeTypedArray(aspectRatio, i);
+        }catch (NoClassDefFoundError e){
+            e.printStackTrace();
+            Log.e(Configuration.class.getSimpleName(),"没有引入com.yalantis.ucrop");
+        }
     }
 }
