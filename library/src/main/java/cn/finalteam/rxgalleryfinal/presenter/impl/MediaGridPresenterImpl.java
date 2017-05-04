@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import cn.finalteam.rxgalleryfinal.Configuration;
 import cn.finalteam.rxgalleryfinal.bean.BucketBean;
 import cn.finalteam.rxgalleryfinal.bean.MediaBean;
 import cn.finalteam.rxgalleryfinal.interactor.MediaBucketFactoryInteractor;
@@ -27,10 +28,10 @@ public class MediaGridPresenterImpl implements MediaGridPresenter, MediaSrcFacto
     Context context;
     MediaGridView mediaGridView;
 
-    public MediaGridPresenterImpl(Context context, boolean isImage) {
+    public MediaGridPresenterImpl(Context context,Configuration.MediaType mediaType) {
         this.context = context;
-        this.mediaSrcFactoryInteractor = new MediaSrcFactoryInteractorImpl(context, isImage, this);
-        this.mediaBucketFactoryInteractor = new MediaBucketFactoryInteractorImpl(context, isImage, this);
+        this.mediaSrcFactoryInteractor = new MediaSrcFactoryInteractorImpl(context, mediaType, this);
+        this.mediaBucketFactoryInteractor = new MediaBucketFactoryInteractorImpl(context, mediaType, this);
     }
 
     /**

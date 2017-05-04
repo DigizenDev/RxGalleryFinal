@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import cn.finalteam.rxgalleryfinal.Configuration.MediaType;
 import cn.finalteam.rxgalleryfinal.bean.MediaBean;
 import cn.finalteam.rxgalleryfinal.interactor.MediaSrcFactoryInteractor;
 import cn.finalteam.rxgalleryfinal.utils.MediaUtils;
@@ -22,11 +23,11 @@ public class MediaSrcFactoryInteractorImpl implements MediaSrcFactoryInteractor 
 
     Context context;
     OnGenerateMediaListener onGenerateMediaListener;
-    boolean isImage;
+    MediaType mediaType;
 
-    public MediaSrcFactoryInteractorImpl(Context context, boolean isImage, OnGenerateMediaListener onGenerateMediaListener) {
+    public MediaSrcFactoryInteractorImpl(Context context, MediaType mediaType, OnGenerateMediaListener onGenerateMediaListener) {
         this.context = context;
-        this.isImage = isImage;
+        this.mediaType = mediaType;
         this.onGenerateMediaListener = onGenerateMediaListener;
     }
 
@@ -37,10 +38,12 @@ public class MediaSrcFactoryInteractorImpl implements MediaSrcFactoryInteractor 
             @Override
             public void call(Subscriber<? super List<MediaBean>> subscriber) {
                 List<MediaBean> mediaBeanList = null;
-                if(isImage) {
+                if (MediaType.IMAGE == mediaType) {
                     mediaBeanList = MediaUtils.getMediaWithImageList(context, bucketId, page, limit);
-                } else {
+                } else if (MediaType.VIDEO == mediaType) {
                     mediaBeanList = MediaUtils.getMediaWithVideoList(context, bucketId, page, limit);
+                } else {
+                    mediaBeanList=MediaUtils.getMediaAllList(context, bucketId, page, limit);
                 }
                 subscriber.onNext(mediaBeanList);
                 subscriber.onCompleted();

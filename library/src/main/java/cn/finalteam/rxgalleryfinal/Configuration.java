@@ -31,7 +31,11 @@ public class Configuration implements Parcelable{
     protected Configuration() {
     }
 
-    private boolean image = true;
+    public enum MediaType{
+        IMAGE,VIDEO,ALL
+    }
+
+    private MediaType mediaType = MediaType.IMAGE;
     private Context context;
     private List<MediaBean> selectedList;
     private boolean radio;
@@ -42,6 +46,7 @@ public class Configuration implements Parcelable{
     private int imageConfig;
     private boolean hideCamera;
     private String toActivityClassName;
+    private boolean filter;
 
     //==========UCrop START==========
     //是否隐藏裁剪页面底部控制栏,默认显示
@@ -71,7 +76,8 @@ public class Configuration implements Parcelable{
     //==========UCrop END==========
 
     protected Configuration(Parcel in) {
-        image = in.readByte() != 0;
+        int tmpMediaType = in.readInt();
+        this.mediaType = tmpMediaType == -1 ? null : MediaType.values()[tmpMediaType];
         selectedList = in.createTypedArrayList(MediaBean.CREATOR);
         radio = in.readByte() != 0;
         crop = in.readByte() != 0;
@@ -113,12 +119,22 @@ public class Configuration implements Parcelable{
         }
     };
 
+    @Deprecated
     public boolean isImage() {
-        return image;
+        return MediaType.IMAGE==mediaType;
     }
 
+    @Deprecated
     protected void setImage(boolean image) {
-        this.image = image;
+        setMediaType(image?MediaType.IMAGE:MediaType.VIDEO);
+    }
+
+    public MediaType getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(MediaType mediaType) {
+        this.mediaType = mediaType;
     }
 
     public Context getContext() {
@@ -327,6 +343,8 @@ public class Configuration implements Parcelable{
         return toActivityClassName;
     }
 
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -334,7 +352,7 @@ public class Configuration implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeByte((byte) (image ? 1 : 0));
+        parcel.writeInt(this.mediaType == null ? -1 : this.mediaType.ordinal());
         parcel.writeTypedList(selectedList);
         parcel.writeByte((byte) (radio ? 1 : 0));
         parcel.writeByte((byte) (crop ? 1 : 0));

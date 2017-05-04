@@ -5,8 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dyhdyh.rxgalleryfinal.IMediaActivityDelegate;
-import com.dyhdyh.rxgalleryfinal.MediaActivityDelegate;
+import com.digizen.rxgalleryfinal.IMediaActivityDelegate;
+import com.digizen.rxgalleryfinal.MediaActivityDelegate;
+
 
 /**
  * author  dengyuhan

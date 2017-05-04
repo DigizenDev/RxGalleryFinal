@@ -17,5 +17,6 @@
     <string name="gallery_preview_title">预览</string>
     <string name="gallery_all_image">所有图片</string>
     <string name="gallery_all_video">所有视频</string>
+    <string name="gallery_all">图片和视频</string>
     <string name="gallery_take_image">拍摄照片</string>
 </resources>

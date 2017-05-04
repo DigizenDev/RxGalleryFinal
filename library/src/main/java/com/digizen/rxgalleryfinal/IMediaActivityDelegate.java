@@ -1,4 +1,5 @@
-package com.dyhdyh.rxgalleryfinal;
+package com.digizen.rxgalleryfinal;
+
 
 /**
  * author  dengyuhan

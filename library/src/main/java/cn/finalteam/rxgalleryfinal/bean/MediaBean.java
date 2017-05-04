@@ -46,6 +46,9 @@ public class MediaBean implements Parcelable {
     //小缩略图
     private String thumbnailSmallPath;
 
+    //视频时长
+    private long videoDuration;
+
     public MediaBean(){}
 
     protected MediaBean(Parcel in) {
@@ -65,6 +68,7 @@ public class MediaBean implements Parcelable {
         longitude = in.readDouble();
         orientation = in.readInt();
         length = in.readLong();
+        videoDuration = in.readLong();
     }
 
     @Override
@@ -85,6 +89,7 @@ public class MediaBean implements Parcelable {
         dest.writeDouble(longitude);
         dest.writeInt(orientation);
         dest.writeLong(length);
+        dest.writeLong(videoDuration);
     }
 
     @Override
@@ -236,6 +241,14 @@ public class MediaBean implements Parcelable {
 
     public void setLength(long length) {
         this.length = length;
+    }
+
+    public long getVideoDuration() {
+        return videoDuration;
+    }
+
+    public void setVideoDuration(long videoDuration) {
+        this.videoDuration = videoDuration;
     }
 
     @Override

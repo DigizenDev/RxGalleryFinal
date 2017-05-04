@@ -20,8 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dyhdyh.rxgalleryfinal.IMediaActivityDelegate;
-import com.dyhdyh.rxgalleryfinal.MediaActivityDelegate;
+import com.digizen.rxgalleryfinal.IMediaActivityDelegate;
+import com.digizen.rxgalleryfinal.MediaActivityDelegate;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 
@@ -48,9 +48,9 @@ import cn.finalteam.rxgalleryfinal.rxbus.RxBusSubscriber;
 import cn.finalteam.rxgalleryfinal.rxbus.event.CloseMediaViewPageFragmentEvent;
 import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
 import cn.finalteam.rxgalleryfinal.rxbus.event.MediaCheckChangeEvent;
+import cn.finalteam.rxgalleryfinal.rxbus.event.OpenMediaPageFragmentEvent;
 import cn.finalteam.rxgalleryfinal.rxbus.event.OpenMediaPreviewFragmentEvent;
 import cn.finalteam.rxgalleryfinal.rxbus.event.RequestStorageReadAccessPermissionEvent;
-import cn.finalteam.rxgalleryfinal.rxbus.event.OpenMediaPageFragmentEvent;
 import cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity;
 import cn.finalteam.rxgalleryfinal.ui.adapter.BucketAdapter;
 import cn.finalteam.rxgalleryfinal.ui.adapter.MediaGridAdapter;
@@ -64,6 +64,7 @@ import cn.finalteam.rxgalleryfinal.utils.EmptyViewUtils;
 import cn.finalteam.rxgalleryfinal.utils.FileUtils;
 import cn.finalteam.rxgalleryfinal.utils.Logger;
 import cn.finalteam.rxgalleryfinal.utils.MediaScanner;
+import cn.finalteam.rxgalleryfinal.utils.MediaStringUtils;
 import cn.finalteam.rxgalleryfinal.utils.MediaUtils;
 import cn.finalteam.rxgalleryfinal.utils.PermissionCheckUtils;
 import cn.finalteam.rxgalleryfinal.utils.SimpleDateUtils;
@@ -93,7 +94,7 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
     private final String TAKE_URL_STORAGE_KEY = "take_url_storage_key";
     private final String BUCKET_ID_KEY = "bucket_id_key";
 
-    private final int LIMIT = 23;
+    private final int LIMIT = 24;
 
     MediaGridPresenterImpl mMediaGridPresenter;
     DisplayMetrics mScreenSize;
@@ -172,7 +173,7 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
 
         mTvFolderName = (TextView) view.findViewById(R.id.tv_folder_name);
         mTvFolderName.setOnClickListener(this);
-        mTvFolderName.setText(mConfiguration.isImage() ? R.string.gallery_all_image : R.string.gallery_all_video);
+        mTvFolderName.setText(MediaStringUtils.getMediaTypeAllText(mConfiguration.getMediaType()));
         mTvPreview = (TextView) view.findViewById(R.id.tv_preview);
         mTvPreview.setOnClickListener(this);
         mTvPreview.setEnabled(false);
@@ -186,7 +187,7 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
         mMediaGridAdapter = new MediaGridAdapter(mMediaActivityDelegate, mMediaBeanList,
                 mScreenSize.widthPixels, mConfiguration);
         mRvMedia.setAdapter(mMediaGridAdapter);
-        mMediaGridPresenter = new MediaGridPresenterImpl(getContext(), mConfiguration.isImage());
+        mMediaGridPresenter = new MediaGridPresenterImpl(getContext(), mConfiguration.getMediaType());
         mMediaGridPresenter.setMediaGridView(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

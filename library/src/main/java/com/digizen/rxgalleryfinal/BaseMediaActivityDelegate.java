@@ -1,4 +1,4 @@
-package com.dyhdyh.rxgalleryfinal;
+package com.digizen.rxgalleryfinal;
 
 import android.content.Intent;
 import android.os.Bundle;

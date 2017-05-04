@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dyhdyh.rxgalleryfinal.MediaActivityDelegate;
+import com.digizen.rxgalleryfinal.MediaActivityDelegate;
 
 import java.io.File;
 import java.util.List;
@@ -34,6 +34,7 @@ import cn.finalteam.rxgalleryfinal.ui.widget.RecyclerImageView;
 import cn.finalteam.rxgalleryfinal.utils.Logger;
 import cn.finalteam.rxgalleryfinal.utils.OsCompat;
 import cn.finalteam.rxgalleryfinal.utils.ThemeUtils;
+import cn.finalteam.rxgalleryfinal.utils.VideoUtils;
 
 /**
  * Desction:
@@ -102,6 +103,14 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
             } else {
                 holder.mCbCheck.setChecked(false);
             }
+
+            if (mediaBean.getVideoDuration()>0){
+                holder.tv_video_duration.setVisibility(View.VISIBLE);
+                holder.tv_video_duration.setText(VideoUtils.formatDuration(mediaBean.getVideoDuration()));
+            }else{
+                holder.tv_video_duration.setVisibility(View.GONE);
+            }
+
             String bitPath = mediaBean.getThumbnailSmallPath();
             String smallPath = mediaBean.getThumbnailSmallPath();
 
@@ -191,6 +200,8 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
         TextView mTvCameraTxt;
         ImageView mIvCameraImage;
 
+        TextView tv_video_duration;
+
         public GridViewHolder(Context context, View itemView) {
             super(itemView);
             mIvMediaImage = (RecyclerImageView) itemView.findViewById(R.id.iv_media_image);
@@ -199,6 +210,7 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
             mLlCamera = (LinearLayout) itemView.findViewById(R.id.ll_camera);
             mTvCameraTxt = (TextView) itemView.findViewById(R.id.tv_camera_txt);
             mIvCameraImage = (ImageView) itemView.findViewById(R.id.iv_camera_image);
+            tv_video_duration = (TextView) itemView.findViewById(R.id.tv_video_duration);
 
             int checkTint = ThemeUtils.resolveColor(context, R.attr.colorAccent, R.color.gallery_default_checkbox_button_tint_color);
             CompoundButtonCompat.setButtonTintList(mCbCheck, ColorStateList.valueOf(checkTint));

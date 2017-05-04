@@ -18,8 +18,8 @@ import android.view.View;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.dyhdyh.rxgalleryfinal.IMediaActivityDelegate;
-import com.dyhdyh.rxgalleryfinal.MediaActivityDelegate;
+import com.digizen.rxgalleryfinal.IMediaActivityDelegate;
+import com.digizen.rxgalleryfinal.MediaActivityDelegate;
 
 import java.util.ArrayList;
 import java.util.List;

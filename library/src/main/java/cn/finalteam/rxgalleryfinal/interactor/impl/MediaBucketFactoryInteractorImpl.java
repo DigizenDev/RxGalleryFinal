@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
+import cn.finalteam.rxgalleryfinal.Configuration;
+import cn.finalteam.rxgalleryfinal.Configuration.MediaType;
 import cn.finalteam.rxgalleryfinal.bean.BucketBean;
 import cn.finalteam.rxgalleryfinal.interactor.MediaBucketFactoryInteractor;
 import cn.finalteam.rxgalleryfinal.utils.MediaUtils;
@@ -21,12 +23,12 @@ import rx.schedulers.Schedulers;
 public class MediaBucketFactoryInteractorImpl implements MediaBucketFactoryInteractor {
 
     private Context context;
-    private boolean isImage;
+    private Configuration.MediaType mediaType;
     private OnGenerateBucketListener onGenerateBucketListener;
 
-    public MediaBucketFactoryInteractorImpl(Context context, boolean isImage, OnGenerateBucketListener onGenerateBucketListener) {
+    public MediaBucketFactoryInteractorImpl(Context context, Configuration.MediaType mediaType, OnGenerateBucketListener onGenerateBucketListener) {
         this.context = context;
-        this.isImage = isImage;
+        this.mediaType = mediaType;
         this.onGenerateBucketListener = onGenerateBucketListener;
     }
 
@@ -36,10 +38,12 @@ public class MediaBucketFactoryInteractorImpl implements MediaBucketFactoryInter
             @Override
             public void call(Subscriber<? super List<BucketBean>> subscriber) {
                 List<BucketBean> bucketBeanList = null;
-                if(isImage) {
+                if (MediaType.IMAGE == mediaType) {
                     bucketBeanList = MediaUtils.getAllBucketByImage(context);
-                } else {
+                } else if (MediaType.VIDEO == mediaType) {
                     bucketBeanList = MediaUtils.getAllBucketByVideo(context);
+                } else {
+                    bucketBeanList = MediaUtils.getAllBucket(context, mediaType);
                 }
                 subscriber.onNext(bucketBeanList);
                 subscriber.onCompleted();

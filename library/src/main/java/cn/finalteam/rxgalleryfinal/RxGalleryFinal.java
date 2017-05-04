@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.dyhdyh.rxgalleryfinal.MediaActivityDelegate;
+import com.digizen.rxgalleryfinal.MediaActivityDelegate;
 import com.yalantis.ucrop.UCropActivity;
 import com.yalantis.ucrop.model.AspectRatio;
 
@@ -59,6 +59,12 @@ public class RxGalleryFinal {
 
     public RxGalleryFinal video() {
         configuration.setImage(false);
+        return this;
+    }
+
+
+    public RxGalleryFinal all() {
+        configuration.setMediaType(Configuration.MediaType.ALL);
         return this;
     }
 

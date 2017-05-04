@@ -257,8 +257,8 @@ public class MainActivity extends AppCompatActivity {
                 RxGalleryFinal
                         .with(MainActivity.this)
                         .setActivityClassName(CustomActivity.class)
-                        .video()
-                        .multiple()
+                        .all()
+                        .radio()
                         .imageLoader(ImageLoaderType.GLIDE)
                         .hideCamera()
                         .subscribe(new RxBusResultSubscriber<ImageRadioResultEvent>() {
