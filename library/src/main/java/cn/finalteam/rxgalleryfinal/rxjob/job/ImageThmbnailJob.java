@@ -2,12 +2,8 @@ package cn.finalteam.rxgalleryfinal.rxjob.job;
 
 import android.content.Context;
 
-import java.io.File;
-
 import cn.finalteam.rxgalleryfinal.bean.MediaBean;
 import cn.finalteam.rxgalleryfinal.rxjob.Job;
-import cn.finalteam.rxgalleryfinal.utils.BitmapUtils;
-import cn.finalteam.rxgalleryfinal.utils.MediaUtils;
 
 /**
  * Desction:
@@ -26,6 +22,7 @@ public class ImageThmbnailJob implements Job {
 
     @Override
     public Result onRunJob() {
+        /*
         String originalPath = mediaBean.getOriginalPath();
         File bigThumFile = MediaUtils.createThumbnailBigFileName(context, originalPath);
         File smallThumFile = MediaUtils.createThumbnailSmallFileName(context, originalPath);
@@ -35,6 +32,7 @@ public class ImageThmbnailJob implements Job {
         if(!bigThumFile.exists()){
             BitmapUtils.createThumbnailSmall(smallThumFile, originalPath);
         }
+        */
         Result result = Result.SUCCESS;
         result.setResultData(mediaBean);
         return result;
