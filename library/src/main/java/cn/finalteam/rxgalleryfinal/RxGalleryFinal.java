@@ -262,6 +262,13 @@ public class RxGalleryFinal {
     }
 
 
+
+    public RxGalleryFinal setOnCheckMediaListener(OnCheckMediaListener onCheckMediaListener) {
+        configuration.setOnCheckMediaListener(onCheckMediaListener);
+        return this;
+    }
+
+
     public RxGalleryFinal setData(Bundle data) {
         this.data = data;
         return this;

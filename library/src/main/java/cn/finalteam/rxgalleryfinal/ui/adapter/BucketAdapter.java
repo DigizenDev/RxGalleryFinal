@@ -2,17 +2,12 @@ package cn.finalteam.rxgalleryfinal.ui.adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,13 +56,15 @@ public class BucketAdapter extends RecyclerView.Adapter<BucketAdapter.BucketView
         BucketBean bucketBean = mBucketList.get(position);
         String bucketName = bucketBean.getBucketName();
         if(position != 0) {
-            SpannableString nameSpannable = new SpannableString(bucketName + "\n" + bucketBean.getImageCount() + "张");
-            nameSpannable.setSpan(new ForegroundColorSpan(Color.GRAY), bucketName.length(), nameSpannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            nameSpannable.setSpan(new RelativeSizeSpan(0.8f), bucketName.length(), nameSpannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.mTvBucketName.setText(nameSpannable);
+            //SpannableString nameSpannable = new SpannableString(bucketName + "\n" + bucketBean.getImageCount() + "张");
+            //nameSpannable.setSpan(new ForegroundColorSpan(Color.GRAY), bucketName.length(), nameSpannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //nameSpannable.setSpan(new RelativeSizeSpan(0.8f), bucketName.length(), nameSpannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.tv_bucket_count.setVisibility(View.VISIBLE);
+            holder.tv_bucket_count.setText(bucketBean.getImageCount() + "张");
         } else {
-            holder.mTvBucketName.setText(bucketName);
+            holder.tv_bucket_count.setVisibility(View.GONE);
         }
+        holder.mTvBucketName.setText(bucketName);
         if(mSelectedBucket != null && TextUtils.equals(mSelectedBucket.getBucketId(), bucketBean.getBucketId())) {
             holder.mRbSelected.setVisibility(View.VISIBLE);
             holder.mRbSelected.setChecked(true);
@@ -96,6 +93,7 @@ public class BucketAdapter extends RecyclerView.Adapter<BucketAdapter.BucketView
 
     class BucketViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        TextView tv_bucket_count;
         TextView mTvBucketName;
         SquareImageView mIvBucketCover;
         AppCompatRadioButton mRbSelected;
@@ -108,6 +106,8 @@ public class BucketAdapter extends RecyclerView.Adapter<BucketAdapter.BucketView
             mTvBucketName = (TextView) itemView.findViewById(R.id.tv_bucket_name);
             mIvBucketCover = (SquareImageView) itemView.findViewById(R.id.iv_bucket_cover);
             mRbSelected = (AppCompatRadioButton) itemView.findViewById(R.id.rb_selected);
+            tv_bucket_count = (TextView) itemView.findViewById(R.id.tv_bucket_count);
+
 
             itemView.setOnClickListener(this);
 

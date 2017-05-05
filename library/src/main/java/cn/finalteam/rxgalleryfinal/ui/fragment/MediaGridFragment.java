@@ -373,7 +373,7 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
         mMediaGridPresenter.getMediaList(mBucketId, mPage, LIMIT);
     }
 
-    private void updateBucketName(String bucketName){
+    private void updateBucketName(String bucketName) {
         mTvFolderName.setText(bucketName);
         mMediaActivityDelegate.setTitle(bucketName);
     }
@@ -419,8 +419,10 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
         if (!mConfiguration.isCrop()) {
             ImageCropBean bean = new ImageCropBean();
             bean.copyMediaBean(mediaBean);
-            RxBus.getDefault().post(new ImageRadioResultEvent(bean));
-            getActivity().finish();
+            if (mConfiguration.getOnCheckMediaListener().onChecked(bean,true)) {
+                RxBus.getDefault().post(new ImageRadioResultEvent(bean));
+                getActivity().finish();
+            }
         } else {
             String originalPath = mediaBean.getOriginalPath();
             File file = new File(originalPath);

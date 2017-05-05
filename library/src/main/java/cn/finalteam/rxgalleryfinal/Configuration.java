@@ -46,7 +46,7 @@ public class Configuration implements Parcelable{
     private int imageConfig;
     private boolean hideCamera;
     private String toActivityClassName;
-    private boolean filter;
+    private static OnCheckMediaListener onCheckMediaListener;
 
     //==========UCrop START==========
     //是否隐藏裁剪页面底部控制栏,默认显示
@@ -344,6 +344,19 @@ public class Configuration implements Parcelable{
     }
 
 
+    public OnCheckMediaListener getOnCheckMediaListener() {
+        return onCheckMediaListener==null?new OnCheckMediaListener() {
+            @Override
+            public boolean onChecked(MediaBean media, boolean checked) {
+                return true;
+            }
+
+        }:onCheckMediaListener;
+    }
+
+    public void setOnCheckMediaListener(OnCheckMediaListener onCheckMediaListener) {
+        this.onCheckMediaListener = onCheckMediaListener;
+    }
 
     @Override
     public int describeContents() {

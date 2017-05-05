@@ -159,7 +159,9 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
               /*  Toast.makeText(mMediaActivity, mMediaActivity.getResources()
                         .getString(R.string.gallery_image_max_size_tip, mConfiguration.getMaxSize()), Toast.LENGTH_SHORT).show();*/
             } else {
-                RxBus.getDefault().post(new MediaCheckChangeEvent(mediaBean));
+                if (mConfiguration.getOnCheckMediaListener().onChecked(mediaBean,true)) {
+                    RxBus.getDefault().post(new MediaCheckChangeEvent(mediaBean));
+                }
             }
         }
     }

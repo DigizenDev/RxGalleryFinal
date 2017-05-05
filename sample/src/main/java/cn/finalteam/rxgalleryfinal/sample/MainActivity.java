@@ -16,8 +16,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import cn.finalteam.rxgalleryfinal.OnCheckMediaListener;
 import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
 import cn.finalteam.rxgalleryfinal.RxGalleryFinalApi;
+import cn.finalteam.rxgalleryfinal.bean.MediaBean;
 import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType;
 import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultSubscriber;
 import cn.finalteam.rxgalleryfinal.rxbus.event.ImageMultipleResultEvent;
@@ -26,6 +28,7 @@ import cn.finalteam.rxgalleryfinal.ui.RxGalleryListener;
 import cn.finalteam.rxgalleryfinal.ui.base.IMultiImageCheckedListener;
 import cn.finalteam.rxgalleryfinal.utils.Logger;
 import cn.finalteam.rxgalleryfinal.utils.MediaScanner;
+import cn.finalteam.rxgalleryfinal.utils.MediaType;
 import cn.finalteam.rxgalleryfinal.utils.ModelUtils;
 
 /**
@@ -267,6 +270,18 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), imageRadioResultEvent.getResult().getOriginalPath(), Toast.LENGTH_SHORT).show();
                             }
                         })
+                        .setOnCheckMediaListener(new OnCheckMediaListener() {
+                            @Override
+                            public boolean onChecked(MediaBean media, boolean checked) {
+                                if (media.getMimeType().equals(MediaType.GIF.toString())){
+                                    Toast.makeText(MainActivity.this, "不能选择gif", Toast.LENGTH_SHORT).show();
+                                    return false;
+                                }else{
+                                    return true;
+                                }
+                            }
+
+                        })
                         .openGallery();
             }
         });
@@ -389,6 +404,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
     }
+
 
 
 }

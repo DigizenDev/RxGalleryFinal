@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import cn.finalteam.rxgalleryfinal.R;
@@ -118,14 +119,14 @@ public class MediaUtils {
         if (!TextUtils.equals(bucketId, String.valueOf(Integer.MIN_VALUE))) {
             selection = MediaStore.Video.Media.BUCKET_ID + "=? " +
                     "and (" + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
-                    + " OR "
-                    + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?)" +
-                    " AND " + MediaStore.MediaColumns.SIZE + ">0";
-            selectionArgs = new String[]{bucketId, String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
-                    String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)};
+                    + " OR " + cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql() +
+                    " AND " + MediaStore.MediaColumns.SIZE + ">0)";
+            selectionArgs = cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereArgs(
+                    new String[]{bucketId,String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
+                    String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)});
         } else {
             selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
-                    + " OR "+ cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql()+
+                    + " OR " + cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql() +
                     //+ MediaStore.Files.FileColumns.MEDIA_TYPE + "=?" +
                     " AND " + MediaStore.MediaColumns.SIZE + ">0";
             selectionArgs = cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereArgs(new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
@@ -433,7 +434,7 @@ public class MediaUtils {
             uri = MediaStore.Files.getContentUri("external");
             selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
                     + " OR "
-            +cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql()+
+                    + cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql() +
                     //+ MediaStore.Files.FileColumns.MEDIA_TYPE + "=?" +
                     " AND " + MediaStore.MediaColumns.SIZE + ">0";
             selectionArgs = cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereArgs(new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
@@ -481,7 +482,9 @@ public class MediaUtils {
                     continue;
                 }
                 //获取数量
-                Cursor c = contentResolver.query(uri, projection, bucketKey + "=?", new String[]{bucketId}, null);
+                String[] tmp = Arrays.copyOf(selectionArgs, selectionArgs.length + 1);
+                tmp[tmp.length - 1] = bucketId;
+                Cursor c = contentResolver.query(uri, projection, "("+selection + ") and " + bucketKey + "=?", tmp, null);
                 if (c != null && c.getCount() > 0) {
                     bucketBean.setImageCount(c.getCount());
                 }
