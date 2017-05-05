@@ -366,10 +366,16 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
         mMediaBeanList.clear();
         mMediaGridAdapter.notifyDataSetChanged();
         mBucketAdapter.setSelectedBucket(bucketBean);
+        updateBucketName(bucketBean.getBucketName());
 
         mRvMedia.setFooterViewHide(true);
         mPage = 1;
         mMediaGridPresenter.getMediaList(mBucketId, mPage, LIMIT);
+    }
+
+    private void updateBucketName(String bucketName){
+        mTvFolderName.setText(bucketName);
+        mMediaActivityDelegate.setTitle(bucketName);
     }
 
     @Override

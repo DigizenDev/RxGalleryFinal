@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.finalteam.rxgalleryfinal.Configuration;
 import cn.finalteam.rxgalleryfinal.R;
 import cn.finalteam.rxgalleryfinal.bean.MediaBean;
 import cn.finalteam.rxgalleryfinal.rxbus.RxBus;
@@ -117,16 +118,18 @@ public abstract class MediaActivityDelegate extends BaseMediaActivityDelegate im
         ft.show(mMediaGridFragment)
                 .commit();
 
-        if (mConfiguration.isImage()) {
+        if (Configuration.MediaType.IMAGE==mConfiguration.getMediaType()) {
             setTitle(mActivity.getString(R.string.gallery_media_grid_image_title));
-        } else {
+        }else if (Configuration.MediaType.VIDEO==mConfiguration.getMediaType()) {
             setTitle(mActivity.getString(R.string.gallery_media_grid_video_title));
+        }  else {
+            setTitle(mActivity.getString(R.string.gallery_all));
         }
     }
 
     protected abstract @IdRes int getFragmentContainerId();
 
-    protected abstract void setTitle(CharSequence title);
+    public abstract void setTitle(CharSequence title);
 
     @Override
     public void showMediaPageFragment(ArrayList<MediaBean> list, int position) {

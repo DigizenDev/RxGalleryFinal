@@ -37,7 +37,7 @@ public class CustomActivityDelegate extends MediaActivityDelegate {
     }
 
     @Override
-    protected void setTitle(CharSequence title) {
+    public void setTitle(CharSequence title) {
         mTitleView.setText(title);
     }
 

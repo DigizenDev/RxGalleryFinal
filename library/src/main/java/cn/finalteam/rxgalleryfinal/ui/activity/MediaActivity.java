@@ -454,7 +454,7 @@ public class MediaActivity extends BaseActivity implements ActivityFragmentView,
             }
 
             @Override
-            protected void setTitle(CharSequence title) {
+            public void setTitle(CharSequence title) {
 
             }
 
