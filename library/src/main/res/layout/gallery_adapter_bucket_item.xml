@@ -16,6 +16,7 @@
         android:background="@drawable/gallery_bg_bucket"/>
 
     <TextView
+        android:singleLine="true"
         android:id="@+id/tv_bucket_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

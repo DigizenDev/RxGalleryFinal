@@ -107,7 +107,7 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
                 holder.tv_video_duration.setChecked(true);
             }else{
                 holder.tv_video_duration.setChecked(false);
-                if (mediaBean.getVideoDuration() > 0) {//
+                if (mediaBean.getVideoDuration() > 0) {
                     holder.tv_video_duration.setVisibility(View.VISIBLE);
                     holder.tv_video_duration.setText(VideoUtils.formatDuration(mediaBean.getVideoDuration()));
                 } else {

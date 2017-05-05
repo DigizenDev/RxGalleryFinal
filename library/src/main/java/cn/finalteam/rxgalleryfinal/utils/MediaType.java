@@ -1,13 +1,11 @@
 package cn.finalteam.rxgalleryfinal.utils;
 
-import android.content.ContentResolver;
-import android.net.Uri;
-import android.webkit.MimeTypeMap;
+import android.provider.MediaStore;
 
 import java.io.Serializable;
 import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.Locale;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -15,7 +13,7 @@ import java.util.Set;
  * Author:pengjianbo
  * Date:16/5/5 下午5:03
  */
-public enum  MediaType implements Serializable{
+public enum MediaType implements Serializable {
 
     // ============== images ==============
     JPG("image/jpeg", new HashSet<String>() {{
@@ -92,6 +90,42 @@ public enum  MediaType implements Serializable{
         return EnumSet.of(MPEG, MP4, QUICKTIME, THREEGPP, THREEGPP2, MKV, WEBM, TS, AVI);
     }
 
+    public static String ofCommonVideoWhereSql() {
+        Set<MediaType> video = ofCommonVideo();
+        StringBuffer sb = new StringBuffer("(");
+        sb.append(MediaStore.Files.FileColumns.MEDIA_TYPE + "=? ");
+        sb.append("and ");
+        for (int i = 0; i < video.size(); i++) {
+            sb.append(MediaStore.Files.FileColumns.MIME_TYPE + "=? ");
+            if (i != video.size() - 1) {
+                sb.append("or ");
+            }
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+
+
+    public static String[] ofCommonVideoWhereArgs(String[] args) {
+        Set<MediaType> video = ofCommonVideo();
+        String[] selectionArgs = new String[video.size() + args.length];
+        for (int i = 0; i < args.length; i++) {
+            selectionArgs[i] = args[i];
+        }
+        int index = args.length;
+        Iterator<MediaType> iterator = video.iterator();
+        while (iterator.hasNext()) {
+            selectionArgs[index] = iterator.next().mMimeTypeName;
+            index++;
+        }
+        return selectionArgs;
+    }
+
+
+    public static Set<MediaType> ofCommonVideo() {
+        return EnumSet.of(MPEG, MP4, MKV, AVI);
+    }
+
     @Override
     public String toString() {
         return mMimeTypeName;
@@ -100,4 +134,6 @@ public enum  MediaType implements Serializable{
     public boolean hasVideo() {
         return this == MP4;
     }
+
+
 }

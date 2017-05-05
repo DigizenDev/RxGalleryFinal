@@ -125,11 +125,11 @@ public class MediaUtils {
                     String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)};
         } else {
             selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
-                    + " OR "
-                    + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?" +
+                    + " OR "+ cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql()+
+                    //+ MediaStore.Files.FileColumns.MEDIA_TYPE + "=?" +
                     " AND " + MediaStore.MediaColumns.SIZE + ">0";
-            selectionArgs = new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
-                    String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)};
+            selectionArgs = cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereArgs(new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
+                    String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)});
         }
 
         Cursor cursor = contentResolver.query(
@@ -433,9 +433,11 @@ public class MediaUtils {
             uri = MediaStore.Files.getContentUri("external");
             selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
                     + " OR "
-                    + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?";
-            selectionArgs = new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
-                    String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)};
+            +cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql()+
+                    //+ MediaStore.Files.FileColumns.MEDIA_TYPE + "=?" +
+                    " AND " + MediaStore.MediaColumns.SIZE + ">0";
+            selectionArgs = cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereArgs(new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
+                    String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)});
         }
         bucketBeenList.add(allMediaBucket);
         Cursor cursor = null;
