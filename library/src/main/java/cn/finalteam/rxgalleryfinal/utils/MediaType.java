@@ -132,7 +132,17 @@ public enum MediaType implements Serializable {
     }
 
     public boolean hasVideo() {
-        return this == MP4;
+        return ofCommonVideo().contains(this);
+    }
+
+
+    public static MediaType fromValue(String v) {
+        for (MediaType c : MediaType.values()) {
+            if (c.mMimeTypeName.equals(v)) {
+                return c;
+            }
+        }
+        return null;
     }
 
 
