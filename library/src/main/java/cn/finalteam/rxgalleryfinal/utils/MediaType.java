@@ -123,7 +123,7 @@ public enum MediaType implements Serializable {
 
 
     public static Set<MediaType> ofCommonVideo() {
-        return EnumSet.of(MPEG, MP4, MKV, AVI);
+        return EnumSet.of(MP4);
     }
 
     @Override
