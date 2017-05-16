@@ -223,41 +223,6 @@ public class MediaUtils {
     public static MediaBean getMediaBeanWithImage(Context context, String originalPath) {
         ContentResolver contentResolver = context.getContentResolver();
         List<String> projection = new ArrayList<>();
-        projection.add(MediaStore.Video.Media._ID);
-        projection.add(MediaStore.Video.Media.TITLE);
-        projection.add(MediaStore.Video.Media.DATA);
-        projection.add(MediaStore.Video.Media.BUCKET_ID);
-        projection.add(MediaStore.Video.Media.BUCKET_DISPLAY_NAME);
-        projection.add(MediaStore.Video.Media.MIME_TYPE);
-        projection.add(MediaStore.Video.Media.DATE_ADDED);
-        projection.add(MediaStore.Video.Media.DATE_MODIFIED);
-        projection.add(MediaStore.Video.Media.LATITUDE);
-        projection.add(MediaStore.Video.Media.LONGITUDE);
-        projection.add(MediaStore.Video.Media.SIZE);
-        projection.add(MediaStore.Video.Media.DURATION);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            projection.add(MediaStore.Video.Media.WIDTH);
-            projection.add(MediaStore.Video.Media.HEIGHT);
-        }
-        Cursor cursor = contentResolver.query(
-                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection.toArray(new String[projection.size()]), MediaStore.Images.Media.DATA + "=?",
-                new String[]{originalPath}, null);
-        MediaBean mediaBean = null;
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            mediaBean = parseImageCursorAndCreateThumImage(context, cursor);
-        }
-        if (cursor != null && !cursor.isClosed()) {
-            cursor.close();
-        }
-        cursor = null;
-        return mediaBean;
-    }
-
-
-    public static MediaBean getMediaBeanByPath(Context context, String originalPath) {
-        ContentResolver contentResolver = context.getContentResolver();
-        List<String> projection = new ArrayList<>();
         projection.add(MediaStore.Images.Media._ID);
         projection.add(MediaStore.Images.Media.TITLE);
         projection.add(MediaStore.Images.Media.DATA);
@@ -275,8 +240,43 @@ public class MediaUtils {
             projection.add(MediaStore.Images.Media.HEIGHT);
         }
         Cursor cursor = contentResolver.query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection.toArray(new String[projection.size()]),
-                MediaStore.Images.Media.DATA + "=?",
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection.toArray(new String[projection.size()]), MediaStore.Images.Media.DATA + "=?",
+                new String[]{originalPath}, null);
+        MediaBean mediaBean = null;
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            mediaBean = parseImageCursorAndCreateThumImage(context, cursor);
+        }
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+        cursor = null;
+        return mediaBean;
+    }
+
+
+    public static MediaBean getMediaBeanByPath(Context context, String originalPath) {
+        ContentResolver contentResolver = context.getContentResolver();
+        List<String> projection = new ArrayList<>();
+        projection.add(MediaStore.Video.Media._ID);
+        projection.add(MediaStore.Video.Media.TITLE);
+        projection.add(MediaStore.Video.Media.DATA);
+        projection.add(MediaStore.Video.Media.BUCKET_ID);
+        projection.add(MediaStore.Video.Media.BUCKET_DISPLAY_NAME);
+        projection.add(MediaStore.Video.Media.MIME_TYPE);
+        projection.add(MediaStore.Video.Media.DATE_ADDED);
+        projection.add(MediaStore.Video.Media.DATE_MODIFIED);
+        projection.add(MediaStore.Video.Media.LATITUDE);
+        projection.add(MediaStore.Video.Media.LONGITUDE);
+        projection.add(MediaStore.Video.Media.SIZE);
+        projection.add(MediaStore.Video.Media.DURATION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            projection.add(MediaStore.Video.Media.WIDTH);
+            projection.add(MediaStore.Video.Media.HEIGHT);
+        }
+        Cursor cursor = contentResolver.query(
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection.toArray(new String[projection.size()]),
+                MediaStore.Video.Media.DATA + "=?",
                 new String[]{originalPath}, null);
         MediaBean mediaBean = null;
         if (cursor != null && cursor.getCount() > 0) {
