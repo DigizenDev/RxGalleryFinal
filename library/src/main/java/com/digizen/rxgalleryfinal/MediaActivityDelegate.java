@@ -123,7 +123,8 @@ public abstract class MediaActivityDelegate extends BaseMediaActivityDelegate im
         }else if (Configuration.MediaType.VIDEO==mConfiguration.getMediaType()) {
             setTitle(mActivity.getString(R.string.gallery_media_grid_video_title));
         }  else {
-            setTitle(mActivity.getString(R.string.gallery_all));
+            //第一个显示所有视频
+            setTitle(mActivity.getString(R.string.gallery_media_grid_video_title));
         }
     }
 

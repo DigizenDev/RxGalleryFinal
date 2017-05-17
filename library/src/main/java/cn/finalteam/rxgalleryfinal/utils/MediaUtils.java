@@ -125,11 +125,12 @@ public class MediaUtils {
                     new String[]{bucketId,String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
                     String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)});
         } else {
-            selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
-                    + " OR " + cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql() +
-                    //+ MediaStore.Files.FileColumns.MEDIA_TYPE + "=?" +
+            //第一个显示所有视频
+            selection = //MediaStore.Files.FileColumns.MEDIA_TYPE + "=?" + " OR " +
+                    cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql() +
                     " AND " + MediaStore.MediaColumns.SIZE + ">0";
-            selectionArgs = cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereArgs(new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
+            selectionArgs = cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereArgs(new String[]{
+                    //String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
                     String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)});
         }
 
@@ -465,7 +466,9 @@ public class MediaUtils {
             allMediaBucket.setBucketName(context.getString(R.string.gallery_all_video));
             uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         } else {
-            allMediaBucket.setBucketName(context.getString(R.string.gallery_all));
+            //allMediaBucket.setBucketName(context.getString(R.string.gallery_all));
+            //第一个显示所有视频
+            allMediaBucket.setBucketName(context.getString(R.string.gallery_all_video));
             uri = MediaStore.Files.getContentUri("external");
             selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
                     + " OR "
