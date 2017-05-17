@@ -28,10 +28,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <cn.finalteam.rxgalleryfinal.ui.widget.RecyclerImageView
+        <cn.finalteam.rxgalleryfinal.ui.widget.FixImageView
             android:id="@+id/iv_media_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:scaleType="centerCrop" />
 
         <CheckedTextView

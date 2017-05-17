@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.finalteam.rxgalleryfinal.Configuration;
 import cn.finalteam.rxgalleryfinal.R;
 import cn.finalteam.rxgalleryfinal.bean.MediaBean;
 import cn.finalteam.rxgalleryfinal.rxbus.RxBus;
@@ -34,6 +33,7 @@ import cn.finalteam.rxgalleryfinal.ui.fragment.MediaGridFragment;
 import cn.finalteam.rxgalleryfinal.ui.fragment.MediaPageFragment;
 import cn.finalteam.rxgalleryfinal.ui.fragment.MediaPreviewFragment;
 import cn.finalteam.rxgalleryfinal.utils.Logger;
+import cn.finalteam.rxgalleryfinal.utils.MediaStringUtils;
 import cn.finalteam.rxgalleryfinal.utils.ThemeUtils;
 import cn.finalteam.rxgalleryfinal.view.ActivityFragmentView;
 import rx.Subscription;
@@ -118,17 +118,12 @@ public abstract class MediaActivityDelegate extends BaseMediaActivityDelegate im
         ft.show(mMediaGridFragment)
                 .commit();
 
-        if (Configuration.MediaType.IMAGE==mConfiguration.getMediaType()) {
-            setTitle(mActivity.getString(R.string.gallery_media_grid_image_title));
-        }else if (Configuration.MediaType.VIDEO==mConfiguration.getMediaType()) {
-            setTitle(mActivity.getString(R.string.gallery_media_grid_video_title));
-        }  else {
-            //第一个显示所有视频
-            setTitle(mActivity.getString(R.string.gallery_media_grid_video_title));
-        }
+        setTitle(mActivity.getText(MediaStringUtils.getMediaTypeAllText(mConfiguration.getMediaType())));
     }
 
-    protected abstract @IdRes int getFragmentContainerId();
+    protected abstract
+    @IdRes
+    int getFragmentContainerId();
 
     public abstract void setTitle(CharSequence title);
 
@@ -262,7 +257,7 @@ public abstract class MediaActivityDelegate extends BaseMediaActivityDelegate im
             showMediaGridFragment();
             return super.onBackPressed();
         }
-       return super.onBackPressed();
+        return super.onBackPressed();
     }
 
 

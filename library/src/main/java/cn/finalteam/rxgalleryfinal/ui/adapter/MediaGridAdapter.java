@@ -26,7 +26,6 @@ import cn.finalteam.rxgalleryfinal.bean.MediaBean;
 import cn.finalteam.rxgalleryfinal.rxbus.RxBus;
 import cn.finalteam.rxgalleryfinal.rxbus.event.MediaCheckChangeEvent;
 import cn.finalteam.rxgalleryfinal.ui.base.IMultiImageCheckedListener;
-import cn.finalteam.rxgalleryfinal.ui.widget.RecyclerImageView;
 import cn.finalteam.rxgalleryfinal.utils.MediaType;
 import cn.finalteam.rxgalleryfinal.utils.OsCompat;
 import cn.finalteam.rxgalleryfinal.utils.ThemeUtils;
@@ -197,7 +196,7 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
      */
     static class GridViewHolder extends RecyclerView.ViewHolder {
 
-        RecyclerImageView mIvMediaImage;
+        ImageView mIvMediaImage;
         AppCompatCheckBox mCbCheck;
 
         LinearLayout mLlCamera;
@@ -208,7 +207,7 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
 
         public GridViewHolder(Context context, View itemView) {
             super(itemView);
-            mIvMediaImage = (RecyclerImageView) itemView.findViewById(R.id.iv_media_image);
+            mIvMediaImage = (ImageView) itemView.findViewById(R.id.iv_media_image);
             mCbCheck = (AppCompatCheckBox) itemView.findViewById(R.id.cb_check);
 
             mLlCamera = (LinearLayout) itemView.findViewById(R.id.ll_camera);
