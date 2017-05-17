@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -29,6 +30,7 @@ import cn.finalteam.rxgalleryfinal.ui.base.IMultiImageCheckedListener;
 import cn.finalteam.rxgalleryfinal.utils.Logger;
 import cn.finalteam.rxgalleryfinal.utils.MediaScanner;
 import cn.finalteam.rxgalleryfinal.utils.MediaType;
+import cn.finalteam.rxgalleryfinal.utils.MediaUtils;
 import cn.finalteam.rxgalleryfinal.utils.ModelUtils;
 
 /**
@@ -257,6 +259,8 @@ public class MainActivity extends AppCompatActivity {
         mBtnOpenSetActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MediaBean beanByPath = MediaUtils.getMediaBeanByPath(MainActivity.this, "/storage/emulated/0/G2U/cache/cache_1494926835203.mp4");
+                Log.d("----","----->"+beanByPath);
                 RxGalleryFinal
                         .with(MainActivity.this)
                         .setActivityClassName(CustomActivity.class)

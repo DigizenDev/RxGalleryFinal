@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -39,44 +40,46 @@ public class FrescoImageLoader implements AbsImageLoader {
     }
 
     @Override
-    public void displayImage(Object context, String path, final FixImageView imageView, final Drawable defaultDrawable, Bitmap.Config config, boolean resize, int width, int height, int rotate) {
+    public void displayImage(Object context, String path, final ImageView imageView, final Drawable defaultDrawable, Bitmap.Config config, boolean resize, int width, int height, int rotate) {
         Context ctx = (Context) context;
         init(ctx, defaultDrawable);
 
-        imageView.setOnImageViewListener(new FixImageView.OnImageViewListener() {
-            @Override
-            public void onDetach() {
-                draweeHolder.onDetach();
-            }
-
-            @Override
-            public void onAttach() {
-                draweeHolder.onAttach();
-            }
-
-            @Override
-            public boolean verifyDrawable(Drawable dr) {
-                if (dr == draweeHolder.getHierarchy().getTopLevelDrawable()) {
-                    return true;
+        if (imageView instanceof FixImageView){
+            ((FixImageView)imageView).setOnImageViewListener(new FixImageView.OnImageViewListener() {
+                @Override
+                public void onDetach() {
+                    draweeHolder.onDetach();
                 }
-                return false;
-            }
 
-            @Override
-            public void onDraw(Canvas canvas) {
-                Drawable drawable = draweeHolder.getHierarchy().getTopLevelDrawable();
-                if (drawable == null) {
-                    imageView.setImageDrawable(defaultDrawable);
-                } else {
-                    imageView.setImageDrawable(drawable);
+                @Override
+                public void onAttach() {
+                    draweeHolder.onAttach();
                 }
-            }
 
-            @Override
-            public boolean onTouchEvent(MotionEvent event) {
-                return draweeHolder.onTouchEvent(event);
-            }
-        });
+                @Override
+                public boolean verifyDrawable(Drawable dr) {
+                    if (dr == draweeHolder.getHierarchy().getTopLevelDrawable()) {
+                        return true;
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onDraw(Canvas canvas) {
+                    Drawable drawable = draweeHolder.getHierarchy().getTopLevelDrawable();
+                    if (drawable == null) {
+                        imageView.setImageDrawable(defaultDrawable);
+                    } else {
+                        imageView.setImageDrawable(drawable);
+                    }
+                }
+
+                @Override
+                public boolean onTouchEvent(MotionEvent event) {
+                    return draweeHolder.onTouchEvent(event);
+                }
+            });
+        }
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_FILE_SCHEME)
                 .path(path)

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.digizen.rxgalleryfinal.IMediaActivityDelegate;
 import com.digizen.rxgalleryfinal.MediaActivityDelegate;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -242,6 +243,12 @@ public class MediaActivity extends BaseActivity implements ActivityFragmentView,
 
     @Override
     public void showMediaPageFragment(ArrayList<MediaBean> list, int position) {
+        try {
+            Class.forName(PhotoView.class.getName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
         mSelectedIndex = 1;
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         mMediaPageFragment = MediaPageFragment.newInstance(mConfiguration, list, position);

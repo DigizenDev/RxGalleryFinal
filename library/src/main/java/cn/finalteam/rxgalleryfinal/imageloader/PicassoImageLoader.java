@@ -3,14 +3,13 @@ package cn.finalteam.rxgalleryfinal.imageloader;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
 
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.io.File;
-
-import cn.finalteam.rxgalleryfinal.ui.widget.FixImageView;
 
 /**
  * Desction:
@@ -20,7 +19,7 @@ import cn.finalteam.rxgalleryfinal.ui.widget.FixImageView;
 public class PicassoImageLoader implements AbsImageLoader {
 
     @Override
-    public void displayImage(Object context, String path, FixImageView imageView,
+    public void displayImage(Object context, String path, ImageView imageView,
                              Drawable defaultDrawable, Bitmap.Config config, boolean resize, int width, int height, int rotate) {
         Context ctx = (Context) context;
         RequestCreator creator = Picasso.with(ctx)

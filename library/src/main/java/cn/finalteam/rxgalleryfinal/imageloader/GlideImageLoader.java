@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -13,15 +14,13 @@ import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 
 import java.io.File;
 
-import cn.finalteam.rxgalleryfinal.ui.widget.FixImageView;
-
 /**
  * Created by pengjianbo on 2016/8/13 0013.
  */
 public class GlideImageLoader implements AbsImageLoader {
 
     @Override
-    public void displayImage(Object context, String path, FixImageView imageView, Drawable defaultDrawable, Bitmap.Config config, boolean resize, int width, int height, int rotate) {
+    public void displayImage(Object context, String path, ImageView imageView, Drawable defaultDrawable, Bitmap.Config config, boolean resize, int width, int height, int rotate) {
         Context ctx = (Context) context;
         BitmapRequestBuilder<File, Bitmap> builder = null;
         if (path != null) {
