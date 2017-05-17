@@ -74,6 +74,11 @@ public class ImageCropBean extends MediaBean implements Parcelable {
             setThumbnailBigPath(mediaBean.getThumbnailBigPath());
             setVideoDuration(mediaBean.getVideoDuration());
             setLength(mediaBean.getLength());
+            setWidth(mediaBean.getWidth());
+            setHeight(mediaBean.getHeight());
+            setLongitude(mediaBean.getLongitude());
+            setLatitude(mediaBean.getLatitude());
+            setOrientation(mediaBean.getOrientation());
         }
     }
 }
