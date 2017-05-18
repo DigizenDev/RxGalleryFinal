@@ -351,6 +351,11 @@ public class Configuration implements Parcelable{
                 return true;
             }
 
+            @Override
+            public boolean onFinish(MediaBean media) {
+                return true;
+            }
+
         }:onCheckMediaListener;
     }
 

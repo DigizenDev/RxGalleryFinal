@@ -9,4 +9,11 @@ import cn.finalteam.rxgalleryfinal.bean.MediaBean;
 public interface OnCheckMediaListener{
 
     boolean onChecked(MediaBean media, boolean checked);
+
+    /**
+     *
+     * @param media
+     * @return true会finish,false什么也不做
+     */
+    boolean onFinish(MediaBean media);
 }

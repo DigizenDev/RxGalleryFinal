@@ -421,7 +421,9 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
             bean.copyMediaBean(mediaBean);
             if (mConfiguration.getOnCheckMediaListener().onChecked(bean,true)) {
                 RxBus.getDefault().post(new ImageRadioResultEvent(bean));
-                getActivity().finish();
+                if (mConfiguration.getOnCheckMediaListener().onFinish(bean)){
+                    getActivity().finish();
+                }
             }
         } else {
             String originalPath = mediaBean.getOriginalPath();
