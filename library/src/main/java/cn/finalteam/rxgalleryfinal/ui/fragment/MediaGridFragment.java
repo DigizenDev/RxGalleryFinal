@@ -403,6 +403,11 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
             if (mConfiguration.isRadio()) {
                 radioNext(mediaBean);
             } else {
+                if (!mConfiguration.isPreviewEnabled()){
+                    View itemView = mRvMedia.getLayoutManager().findViewByPosition(position);
+                    itemView.findViewById(R.id.cb_check).performClick();
+                    return;
+                }
                 MediaBean firstBean = mMediaBeanList.get(0);
                 ArrayList<MediaBean> gridMediaList = new ArrayList<>();
                 gridMediaList.addAll(mMediaBeanList);
