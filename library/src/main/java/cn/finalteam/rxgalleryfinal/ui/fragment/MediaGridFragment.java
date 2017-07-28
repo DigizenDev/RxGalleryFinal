@@ -110,6 +110,7 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
     private TextView mTvFolderName;
     private TextView mTvPreview;
     private RelativeLayout mRlRootView;
+    private View layoutPreviewButton;
 
     //扫描
     private MediaScanner mMediaScanner;
@@ -162,6 +163,7 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
         mRvBucket = (RecyclerView) view.findViewById(R.id.rv_bucket);
         mRlBucektOverview = (RelativeLayout) view.findViewById(R.id.rl_bucket_overview);
         mRlRootView = (RelativeLayout) view.findViewById(R.id.rl_root_view);
+        layoutPreviewButton = view.findViewById(R.id.layout_preview_button);
 
         mRvMedia.setEmptyView(mLlEmptyView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
@@ -177,6 +179,9 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
         mTvPreview = (TextView) view.findViewById(R.id.tv_preview);
         mTvPreview.setOnClickListener(this);
         mTvPreview.setEnabled(false);
+
+        layoutPreviewButton.setVisibility(mConfiguration.isPreviewEnabled() ? View.VISIBLE : View.GONE);
+
         if (mConfiguration.isRadio()) {
             view.findViewById(R.id.tv_preview_vr).setVisibility(View.GONE);
             mTvPreview.setVisibility(View.GONE);
@@ -419,9 +424,9 @@ public class MediaGridFragment extends BaseFragment implements MediaGridView, Re
         if (!mConfiguration.isCrop()) {
             ImageCropBean bean = new ImageCropBean();
             bean.copyMediaBean(mediaBean);
-            if (mConfiguration.getOnCheckMediaListener().onChecked(bean,true)) {
+            if (mConfiguration.getOnCheckMediaListener().onChecked(bean, true)) {
                 RxBus.getDefault().post(new ImageRadioResultEvent(bean));
-                if (mConfiguration.getOnCheckMediaListener().onFinish(bean)){
+                if (mConfiguration.getOnCheckMediaListener().onFinish(bean)) {
                     getActivity().finish();
                 }
             }

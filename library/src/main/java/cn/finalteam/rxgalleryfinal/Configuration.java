@@ -44,6 +44,7 @@ public class Configuration implements Parcelable{
 
     private int imageLoaderType;
     private int imageConfig;
+    private boolean previewEnabled;//是否开启预览
     private boolean hideCamera;
     private String toActivityClassName;
     private static OnCheckMediaListener onCheckMediaListener;
@@ -97,6 +98,7 @@ public class Configuration implements Parcelable{
         imageLoaderType = in.readInt();
         imageConfig = in.readInt();
         hideCamera = in.readByte() != 0;
+        previewEnabled=in.readByte()!=0;
         toActivityClassName = in.readString();
 
         try {
@@ -171,6 +173,14 @@ public class Configuration implements Parcelable{
 
     public boolean isHideCamera() {
         return hideCamera;
+    }
+
+    public void setPreviewEnabled(boolean previewEnabled) {
+        this.previewEnabled = previewEnabled;
+    }
+
+    public boolean isPreviewEnabled() {
+        return previewEnabled;
     }
 
     public void setHideCamera(boolean hideCamera) {
@@ -390,6 +400,7 @@ public class Configuration implements Parcelable{
         parcel.writeInt(imageLoaderType);
         parcel.writeInt(imageConfig);
         parcel.writeByte((byte) (hideCamera ? 1 : 0));
+        parcel.writeByte((byte) (previewEnabled ? 1 : 0));
         parcel.writeString(toActivityClassName);
 
         try {

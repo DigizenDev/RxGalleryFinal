@@ -88,6 +88,12 @@ public class RxGalleryFinal {
         return this;
     }
 
+    public RxGalleryFinal preview(boolean enabled) {
+        configuration.setPreviewEnabled(enabled);
+        return this;
+    }
+
+
     public RxGalleryFinal maxSize(@IntRange(from = 1) int maxSize) {
         configuration.setMaxSize(maxSize);
         return this;
