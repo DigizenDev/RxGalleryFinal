@@ -99,12 +99,12 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
                 holder.mCbCheck.setChecked(false);
             }
 
-            if (mediaBean.getMimeType().contains(MediaType.GIF.name().toLowerCase())){
+            if (mediaBean.getMimeType().contains(MediaType.GIF.name().toLowerCase())) {
                 //gif
                 holder.tv_video_duration.setText("");
                 holder.tv_video_duration.setVisibility(View.VISIBLE);
                 holder.tv_video_duration.setChecked(true);
-            }else{
+            } else {
                 holder.tv_video_duration.setChecked(false);
                 if (mediaBean.getVideoDuration() > 0) {
                     holder.tv_video_duration.setVisibility(View.VISIBLE);
@@ -151,15 +151,17 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
 
         @Override
         public void onClick(View view) {
+            AppCompatCheckBox checkBox = (AppCompatCheckBox) view;
             if (mConfiguration.getMaxSize() == mMediaActivity.getCheckedList().size() &&
                     !mMediaActivity.getCheckedList().contains(mediaBean)) {
-                AppCompatCheckBox checkBox = (AppCompatCheckBox) view;
                 checkBox.setChecked(false);
               /*  Toast.makeText(mMediaActivity, mMediaActivity.getResources()
                         .getString(R.string.gallery_image_max_size_tip, mConfiguration.getMaxSize()), Toast.LENGTH_SHORT).show();*/
             } else {
-                if (mConfiguration.getOnCheckMediaListener().onChecked(mediaBean,true)) {
+                if (mConfiguration.getOnCheckMediaListener().onChecked(mediaBean, checkBox.isChecked())) {
                     RxBus.getDefault().post(new MediaCheckChangeEvent(mediaBean));
+                } else {
+                    checkBox.setChecked(false);
                 }
             }
         }

@@ -16,6 +16,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="自定义-Activity"/>
+    <Button
+        android:id="@+id/btn_open_multi_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义多选Activity"/>
 
     <View android:layout_height="2dip"
         android:layout_width="match_parent"
