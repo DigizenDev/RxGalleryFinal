@@ -120,7 +120,7 @@ public class MediaUtils {
             //所有图片和视频
             selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
                     + " OR " + cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereSql() +
-                    " AND " + MediaStore.MediaColumns.SIZE + ">0)";
+                    " AND " + MediaStore.MediaColumns.SIZE + ">0";
             selectionArgs = cn.finalteam.rxgalleryfinal.utils.MediaType.ofCommonVideoWhereArgs(
                     new String[]{bucketId, String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
                             String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)});
