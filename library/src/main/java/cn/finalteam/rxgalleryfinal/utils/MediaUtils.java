@@ -110,6 +110,7 @@ public class MediaUtils {
         projection.add(MediaStore.Video.Media.LONGITUDE);
         projection.add(MediaStore.Video.Media.SIZE);
         projection.add(MediaStore.Video.Media.DURATION);
+        projection.add(MediaStore.Images.Media.ORIENTATION);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             projection.add(MediaStore.Video.Media.WIDTH);
             projection.add(MediaStore.Video.Media.HEIGHT);
@@ -405,6 +406,9 @@ public class MediaUtils {
         mediaBean.setWidth(width);
         mediaBean.setHeight(height);
 
+
+        int orientation = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media.ORIENTATION));
+        mediaBean.setOrientation(orientation);
         double latitude = cursor.getDouble(cursor.getColumnIndex(MediaStore.Video.Media.LATITUDE));
         mediaBean.setLatitude(latitude);
         double longitude = cursor.getDouble(cursor.getColumnIndex(MediaStore.Video.Media.LONGITUDE));
