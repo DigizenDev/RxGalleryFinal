@@ -407,8 +407,11 @@ public class MediaUtils {
         mediaBean.setHeight(height);
 
 
-        int orientation = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media.ORIENTATION));
-        mediaBean.setOrientation(orientation);
+        int columnIndexOrientation = cursor.getColumnIndex(MediaStore.Images.Media.ORIENTATION);
+        if (columnIndexOrientation != -1) {
+            int orientation = cursor.getInt(columnIndexOrientation);
+            mediaBean.setOrientation(orientation);
+        }
         double latitude = cursor.getDouble(cursor.getColumnIndex(MediaStore.Video.Media.LATITUDE));
         mediaBean.setLatitude(latitude);
         double longitude = cursor.getDouble(cursor.getColumnIndex(MediaStore.Video.Media.LONGITUDE));
